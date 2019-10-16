@@ -39,7 +39,7 @@ namespace WpfGraphic
         //Удаление линии с холста
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (currentLine.IsCurrent) currentLine.Remove();
+            if (currentLine != null && currentLine.IsCurrent) currentLine.Remove();
         }
 
         //Нажатие мыши на холсте
@@ -64,10 +64,18 @@ namespace WpfGraphic
         //Движение мыши на холсте
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
+            labelMouseX.Content = (int)e.GetPosition(canvas).X - (int)canvas.Width / 2;
+            labelMouseY.Content = (int)canvas.Height / 2 - (int)e.GetPosition(canvas).Y;
+
             if (currentLine != null && isMouseDown && currentLine.IsCurrent) currentLine.Move(mouseLocationPred, e.GetPosition(canvas));
             mouseLocationPred = e.GetPosition(canvas);
         }
 
-        
+        //Мышь пропадает с холста
+        private void Canvas_MouseLeave(object sender, MouseEventArgs e)
+        {
+            labelMouseX.Content = "None";
+            labelMouseY.Content = "None";
+        }
     }
 }

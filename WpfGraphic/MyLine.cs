@@ -15,6 +15,7 @@ namespace WpfGraphic
     {
         protected LineGeometry lineGeometry; //Сама линия
         protected EllipseGeometry pointGeometry1; //точка начала линии
+        protected EllipseGeometry pointGeometryCenter; //точка середины линии
         protected EllipseGeometry pointGeometry2; //точка конца линии
         protected double[] abc; //Коэффиценты уравнения прямой
 
@@ -37,6 +38,32 @@ namespace WpfGraphic
                 catch (Exception ex) { throw ex; }
             }
         }
+
+        public Point CenterPoint
+        {
+            get
+            {
+                try { return new Point((lineGeometry.EndPoint.X - lineGeometry.StartPoint.X) / 2, (lineGeometry.EndPoint.Y - lineGeometry.StartPoint.Y) / 2); }
+                catch (Exception ex) { throw ex; }
+            }
+
+            set
+            {
+                try
+                {
+                    double dX = value.X - CenterPoint.X;
+                    double dY = value.X - CenterPoint.Y;
+
+                    pointGeometry1.Center = new Point(pointGeometry1.Center.X + dX, pointGeometry1.Center.Y + dY);
+                    pointGeometry2.Center = new Point(pointGeometry2.Center.X + dX, pointGeometry2.Center.Y + dY);
+                    pointGeometryCenter.Center = value;
+                    
+                    CalcABC();
+                }
+                catch (Exception ex) { throw ex; }
+            }
+        }
+
         public Point EndPoint
         {
             get
@@ -118,6 +145,7 @@ namespace WpfGraphic
 
             pointGeometry1 = new EllipseGeometry(new Point(x1, y1), 3, 3);
             pointGeometry2 = new EllipseGeometry(new Point(x2, y2), 3, 3);
+            pointGeometryCenter = new EllipseGeometry(new Point((x2 - x1) / 2, (y2 - y1) / 2), 3, 3);
 
             abc = new double[3];
 

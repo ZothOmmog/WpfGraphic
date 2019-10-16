@@ -18,7 +18,8 @@ namespace WpfGraphic
         private Path line;
         private Path pointStart;
         private Path pointEnd;
-        Canvas canvas;
+        private Path pointCenter;
+        private Canvas canvas;
         public bool IsCurrent { get; private set; }
         
         public MyGraphicLine(Canvas c) : base()
@@ -41,6 +42,11 @@ namespace WpfGraphic
             pointStart.Fill = Brushes.Red;
             pointStart.Data = pointGeometry1;
 
+            pointCenter = new Path();
+            pointCenter.Stroke = Brushes.Red;
+            pointCenter.Fill = Brushes.Red;
+            pointCenter.Data = pointGeometry1;
+
             pointEnd = new Path();
             pointEnd.Stroke = Brushes.Red;
             pointEnd.Fill = Brushes.Red;
@@ -54,6 +60,7 @@ namespace WpfGraphic
         {
             canvas.Children.Add(line);
             canvas.Children.Add(pointStart);
+            canvas.Children.Add(pointCenter);
             canvas.Children.Add(pointEnd);
         }
 
@@ -62,6 +69,7 @@ namespace WpfGraphic
         {
             canvas.Children.Remove(line);
             canvas.Children.Remove(pointStart);
+            canvas.Children.Remove(pointCenter);
             canvas.Children.Remove(pointEnd);
         }
 

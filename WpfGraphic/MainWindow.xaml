@@ -5,31 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfGraphic"
         mc:Ignorable="d"
-        Title="Графический редактор" Height="450" Width="800">
+        Title="Графический редактор" Height="590" Width="820">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="2.75*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="1.6*" />
         </Grid.RowDefinitions>
 
-        <GridSplitter Grid.Column="1" Grid.RowSpan="12" ShowsPreview="False" Width="3"
-                      HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="DarkGray"/>
-
-        
-        
         <!--Область вывода-->
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" Background="Gray">
             <!--Панель для координат мышки-->
             <StackPanel Orientation="Vertical">
                 <Label Content="Координаты мышки:" VerticalAlignment="Center"/>
-                
+
                 <StackPanel Orientation="Horizontal">
                     <Label Content="X:  " VerticalAlignment="Center"/>
                     <Label x:Name="labelMouseX" Background="AliceBlue" VerticalAlignment="Center" Content="None" MaxHeight="23" FontSize="10"/>
@@ -39,8 +32,8 @@
             </StackPanel>
 
             <!--Координаты конца и начала линии-->
-            <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" Margin="0,0,0,20">
-                <Label Content="Координаты начала и конца линии:" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical">
+                <Label Content="Координаты начала и конца выбранной линии:" VerticalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="X1:" VerticalAlignment="Center"/>
                     <Label x:Name="labelCurrentLineX1" Background="AliceBlue" VerticalAlignment="Center" Content="None" MaxHeight="23" FontSize="10"/>
@@ -54,32 +47,30 @@
             </StackPanel>
 
             <!--Панель для уравнения линии-->
-            <StackPanel Orientation="Horizontal" >
+            <StackPanel Orientation="Vertical" Margin="0,0,0,15">
                 <Label Content="Уравнение линии:" VerticalAlignment="Center"/>
-                <Label x:Name="labelEquation" Background="AliceBlue" VerticalAlignment="Center" Content="None" MaxHeight="23" FontSize="10"/>
+                <Label x:Name="labelEquation" Background="AliceBlue" Content="None" FontSize="10" HorizontalContentAlignment="Center"
+                         HorizontalAlignment="Left" Margin="25, 0" MaxHeight="23" MinWidth="95"/>
             </StackPanel>
         </StackPanel>
 
-        <GridSplitter Grid.Row="1"  Grid.Column="0" ShowsPreview="False" Height="3"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="DarkGray"/>
-
         <!--Область ввода-->
-        <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Vertical" Background="Gray">
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" Background="Gray">
             <Label Content="Меню" FontSize="20" HorizontalAlignment="Center"/>
-            <Button x:Name="buttonCreate" Content="Создать линию" 
+            <Button x:Name="buttonCreate" Content="Создать линию" Margin="5,0,5,0"
                 Click="ButtonCreate_Click"/>
-            <Button x:Name="buttonDelete" Content="Удалить линию"
+            <Button x:Name="buttonDelete" Content="Удалить линию" Margin="5,0,5,0"
                 Click="ButtonDelete_Click"/>
-            <Button x:Name="buttonExit" Content="Выход" 
+            <Button x:Name="buttonExit" Content="Выход" Margin="5,0,5,0"
                 Click="ButtonExit_Click"/>
         </StackPanel>
 
         <!--Область рисования-->
-        <DockPanel Grid.Column="2" Grid.RowSpan="3" Background="Gray">
+        <DockPanel Grid.Column="1" Grid.RowSpan="2" Background="Gray">
             <Label Content="Холст" FontSize="20"
                    HorizontalAlignment="Center" DockPanel.Dock="Top"/>
-            <Canvas x:Name="canvas" Background="LightGray"
-                MouseDown="Canvas_MouseDown" MouseUp="Canvas_MouseUp" MouseMove="Canvas_MouseMove"/>
+            <Canvas x:Name="canvas" Background="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="501" Height="501"
+                MouseDown="Canvas_MouseDown" MouseUp="Canvas_MouseUp" MouseMove="Canvas_MouseMove" MouseLeave="Canvas_MouseLeave"/>
         </DockPanel>
     </Grid>
 </Window>
